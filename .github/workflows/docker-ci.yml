@@ -14,8 +14,10 @@ jobs:
     - name: Set up Docker
       uses: docker/setup-buildx-action@v3
 
-    - name: Build Docker image
-      run: docker build -t flask-app .
+    - name: Build Docker image for Web Server
+      run: |
+        cd Web-Serber
+        docker build -t web-server-app .
 
     - name: Run Unit Test (optional step)
       run: echo "Testing done (placeholder)"
