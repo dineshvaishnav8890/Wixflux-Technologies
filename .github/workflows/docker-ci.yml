@@ -7,6 +7,7 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+
     steps:
     - name: Checkout Repo
       uses: actions/checkout@v3
@@ -22,8 +23,11 @@ jobs:
     - name: Run Unit Test (optional step)
       run: echo "Testing done (placeholder)"
 
-    - name: Push to Docker Hub
+    - name: Login to Docker Hub
       run: |
         echo "${{ secrets.DOCKER_PASSWORD }}" | docker login -u "${{ secrets.DOCKER_USERNAME }}" --password-stdin
-        docker tag web-server DOCKER_USERNAME/web-server
-        docker push DOCKER_USERNAME/web-server
+
+    - name: Tag & Push Docker Image
+      run: |
+        docker tag web-server ${{ secrets.DOCKER_USERNAME }}/web-server
+        docker push ${{ secrets.DOCKER_USERNAME }}/web-server
